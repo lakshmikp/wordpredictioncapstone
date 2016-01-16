@@ -1,0 +1,78 @@
+---
+title: "Word Prediction Milestone Report"
+date: "December 24, 2015"
+output: html_document
+---
+
+This is a milestone report for the word prediction capstone project. In this project we will be applying data science in the area of natural language processing. The objective of the project is to build an app that can predict the "next" word given a series of words. The data to build the app is available from a corpus called HC Corpora (www.corpora.heliohost.org). This milestone assignment is to do explorations of the source data, that can later be used to build a model for the word prediction.
+
+## Source Data
+About ~10% of the US news-blog-twitter data has been loaded for this exploratory analysis. The following number of lines of data has been loaded from each of these sources:
+
+* US_news: 100,000
+* US_blogs: 10,000
+* US_twitter: 200,000
+
+```{r include=FALSE}
+source('explore.R')
+```
+
+
+## Transformations
+The following transformations were done on the data to keep the exploration (and modeling) simple.
+
+* All cases have been converted to lower case.
+* All numerals have been removed.
+* All punctuation have been removed.
+* All white space has been stripped off.
+
+## N-Gram Counts
+The transformed data has been processed to identify all the unique words, bigrams and trigrams. 
+
+* There are `r nrow(dt1)` unique words.
+* There are `r nrow(dt2)` unique bigrams.
+* There are `r nrow(dt3)` unique trigrams.
+
+Probably we may need to look at more ngrams to build the model. For now we are stopping at trigrams.
+
+## Popular Terms
+Let's take a look at the most popular terms in the source data. The 20 most popular terms are shown in the histograms below.
+
+```{r echo=FALSE}
+
+plotHist(dt1, "Frequency of 20 most popular words", "darkblue")
+plotHist(dt2, "Frequency of 20 most popular bigrams", "darkred")
+plotHist(dt3, "Frequency of 20 most popular trigrams", "darkgreen")
+
+```
+
+## Frequency of Occurence
+The frequency of occurence of N-grams can be classified into different levels. As part of this exploratory analysis five such levels have been considered.
+
+* A: Just 1 occurence
+* B: Between 1 and 10 occurences
+* C: Between 10 and 50 occurences
+* D: Between 50 and 100 occurences
+* E: More than 100 occurences
+
+Frequency of occurence of unique words is as follows:
+```{r echo=FALSE}
+table(dt1[,c("FrequencyLevel")])
+```
+
+
+Frequency of occurence of bigrams (2 word combinations) is as follows:
+```{r echo=FALSE}
+table(dt2[,c("FrequencyLevel")])
+```
+
+Frequency of occurence of trigrams (3 word combinations) is as follows:
+```{r echo=FALSE}
+table(dt3[,c("FrequencyLevel")])
+```
+
+## Observations and Questions
+We can see that the number of terms with a high level of frequency is comparatively less. So it may make sense to prune out the sparse terms before building the model. 
+
+Most of the popular terms are based on stop words. Would it make sense to have a separate strategy/model to handle stop words?
+
