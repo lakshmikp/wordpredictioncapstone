@@ -1,0 +1,53 @@
+Word Prediction Application
+========================================================
+author: Johns Hopkins Coursera DataScience Capstone Student
+date: January 2016
+autosize: true
+
+Overview
+========================================================
+
+[Word prediction app](https://lakshmikp.shinyapps.io/word-prediction/) provides a prediction of upto three words, given an English text. The application will show the predictions for the next word as you type each word.
+
+- Application data prepared using R libraries
+- Application built as a [Shiny App](http://shiny.rstudio.com/), a web application framework for R
+- Application deployed  on [ShinyApps IO](https://www.shinyapps.io/), a Shiny Server
+
+
+Data
+========================================================
+
+- Corpus of English language text from
+  - Blogs
+  - News
+  - Tweets
+- Subset of original corpus used for building application data
+  - Data files were split into files of 1KB size
+  - First 200 lines of data picked from each split file
+
+
+Algorithm
+=======================================================
+
+- Multiple N-Grams lists were built
+  - Bigrams, Trigrams, Quadgrams, Pentagrams
+- N-Gram filtering based on frequency
+  - Only those N-Grams that had a minimum threshold frequency were considered
+  - Frequency threshold was defined per N-Gram list, lower threshold for N-Grams with fewer words
+  
+***
+  
+- Spelling correction done for the potential predictions
+  - Based on the data & algorithm by [Peter Norwig](http://norvig.com/spell-correct.html)
+- Input text compared against all N-Gram lists to find predictions
+  - Priority given to number of words in the N-Gram and Frequency
+  - Upto three matches presented as prediction
+  
+
+
+Scope for improvement
+=======================================================
+
+- Handling spelling errors in the input text
+- Use of a training data set to finetune the various parameters
+- Handling non-English languages
