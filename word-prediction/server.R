@@ -7,6 +7,7 @@ library(tm)
 library(SnowballC)
 
 nGramIndex <- 5
+numberOfPredictions <- 1
 dt <- list()
 
 for (m in 2:nGramIndex){
@@ -52,13 +53,16 @@ getNextWord <- function(x){
     }, silent = TRUE)
   
   if (nrow(res)==0){
-    print ("the,and,that")
+    if (numberOfPredictions >=3)
+      print ("the,and,that")
+    else print ("the")
+    
   }else{
     #res <- mutate(res, Score=ifelse(Next  %in% stopwords(), yes=Frequency*N, no=Frequency*(10*N)))
     res <- res[order(-N, -Frequency)]
     print(res)
     #easi, import, excit,happi, peopl, amaz
-    print(head(unique(res$Next),3))
+    print(head(unique(res$Next),numberOfPredictions))
   }
   
 }
