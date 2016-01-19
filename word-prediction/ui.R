@@ -8,10 +8,9 @@ shinyUI(
  
     mainPanel(
       h3('This Shiny app predicts the next word.'),
-      textInput('inputWords', 'Enter some text in English language'),
-      #actionButton("do", "Submit"),
-      hr(),
-      h2('The next word could be'),
+      textInput('inputWords', 'Enter your text in English language:'),
+      submitButton("Submit"),
+      h5('Your next word could be:'),
       verbatimTextOutput("nextWord")
     )
 )
